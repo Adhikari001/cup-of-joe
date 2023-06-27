@@ -1,0 +1,25 @@
+#spring:
+#  datasource:
+#    url: jdbc:h2:mem:mydb
+#    username: sa
+#    password: password
+#    driverClassName: org.h2.Driver
+#  jpa:
+#    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/cms
+    username: saurav
+    password: saurav
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+#
+#logging:
+#  level:
+#    ROOT: DEBUG
