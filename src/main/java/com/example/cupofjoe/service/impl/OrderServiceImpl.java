@@ -35,7 +35,11 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Autowired
-    public OrderServiceImpl(OrdersRepository ordersRepository, OrderItemService orderItemService, MyUserValidator myUserValidator, ContextHolderService contextHolderService, OrderValidator orderValidator) {
+    public OrderServiceImpl(OrdersRepository ordersRepository,
+                            OrderItemService orderItemService,
+                            MyUserValidator myUserValidator,
+                            ContextHolderService contextHolderService,
+                            OrderValidator orderValidator) {
         this.ordersRepository = ordersRepository;
         this.orderItemService = orderItemService;
         this.myUserValidator = myUserValidator;
@@ -46,12 +50,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional
     public Message addOrderRequest(AddOrderRequest request) {
-        Orders orders =new Orders();
-        orders.setSeller(myUserValidator.validateMyUser(request.getCafeId()));
-        orders.setBuyer(myUserValidator.validateMyUser(contextHolderService.getContext().getUserId()));
-        orders.setOrderStatus(OrderStatus.ORDERED.name());
-        prepareToAddOrder(request);
-        orders =ordersRepository.saveAndFlush(orders);
+        Orders orders =ordersRepository.saveAndFlush(prepareToAddOrder(request));
         orderItemService.addOrderItems(request.getItem(), orders);
         return Message.builder().message("orders added successfully").id(orders.getId()).build();
     }
@@ -123,8 +122,10 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private Orders prepareToAddOrder(AddOrderRequest request) {
-        Orders orders = new Orders();
-
+        Orders orders =new Orders();
+        orders.setSeller(myUserValidator.validateMyUser(request.getCafeId()));
+        orders.setBuyer(myUserValidator.validateMyUser(contextHolderService.getContext().getUserId()));
+        orders.setOrderStatus(OrderStatus.ORDERED.name());
         return orders;
     }
 }

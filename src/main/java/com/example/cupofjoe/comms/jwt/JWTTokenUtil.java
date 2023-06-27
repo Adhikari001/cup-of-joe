@@ -27,16 +27,16 @@ public class JWTTokenUtil {
     public JWTTokenUtil() {
     }
 
-        public static void main(String[] args) {
-        String jwt = createJWT("hello","saurav", new String[]{"CEO", "Developer"}, "ADMIN");
-        System.out.println(jwt);
+//        public static void main(String[] args) {
+//        String jwt = createJWT("hello","saurav", new String[]{"CEO", "Developer"}, "ADMIN");
+//        System.out.println(jwt);
 //        ClaimResponse usernameFromToken = getUsernameFromToken(jwt);
 //        System.out.println("User name and permission is::");
 //        System.out.println(usernameFromToken.getUsername());
 //        System.out.println(usernameFromToken.getPermission());
-    }
+//    }
 
-    public static String createJWT(String userID , String username, String[] permission, String role) {
+    public String createJWT(String userID , String username, String[] permission, String role) {
         Key hmacKey = new SecretKeySpec(Base64.getDecoder().decode(SECRET_KEY),
                 SignatureAlgorithm.HS256.getJcaName());
 

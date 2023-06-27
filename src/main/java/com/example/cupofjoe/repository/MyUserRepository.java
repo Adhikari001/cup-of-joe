@@ -11,6 +11,7 @@ import java.util.Optional;
 
 @Repository
 public interface MyUserRepository extends JpaRepository<MyUser, String> {
+    @Query(value = "select user from MyUser user where user.email=:email")
     Optional<MyUser> findByEmail(String email);
 
     @Query(value = "select new com.example.cupofjoe.dto.cafe.CafeResponse(user.id, user.cafeName) from MyUser user where coalesce(user.cafeName, '') <> '' and user.id!=:userId")

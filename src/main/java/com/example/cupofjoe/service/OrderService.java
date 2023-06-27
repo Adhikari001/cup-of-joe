@@ -14,7 +14,6 @@ public interface OrderService {
 
     List<OrderResponse> findMyBuys(String orderStatus);
 
-
     UpdateResponse<OrderResponse> markAsPrepared(Long orderId);
 
     UpdateResponse<OrderResponse> markAsCompleted(Long orderId);

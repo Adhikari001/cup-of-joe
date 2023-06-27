@@ -14,8 +14,11 @@ import java.util.Map;
 public class CustomExceptionHandler {
 
     @ExceptionHandler(RestException.class)
-    public ResponseEntity<RestException> handelRestException(RestException ex) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex);
+    public ResponseEntity<Map<String, String>> handelRestException(RestException ex) {
+        Map<String, String> errorResponse = new HashMap<>();
+        errorResponse.put("code", ex.getCode());
+        errorResponse.put("message", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
