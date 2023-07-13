@@ -25,9 +25,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class MyUserControllerIntegrationTest {
 
 
-    MockMvc mockMvc;
-    ObjectMapper mapper;
-    ObjectWriter ow;
+    private final MockMvc mockMvc;
+    private final ObjectMapper mapper;
+    private final ObjectWriter ow;
 
     @Autowired
     public MyUserControllerIntegrationTest(MockMvc mockMvc){
@@ -37,13 +37,13 @@ public class MyUserControllerIntegrationTest {
         ow = mapper.writer().withDefaultPrettyPrinter();
     }
 
-    @Test
-    public void firstTest() throws Exception{
-        this.mockMvc.perform(get("/")
-                        .header("Authorization", "Bearer eyJhbGciOiJIUzUxMiJ9.eyJ1c2VybmFtZSI6InNhdXJhdiIsInBlcm1pc3Npb24iOlsiQ0VPIiwiRGV2ZWxvcGVyIl0sInJvbGUiOiJBRE1JTiIsImp0aSI6ImhlbGxvIiwiaWF0IjoxNjg3ODQ2MjQ3LCJleHAiOjE2ODc5MzI2NDd9.fp5gXwFzUQmHPqGIoZkGKJc-8u2jJSX9ZaUSLmcDY8VcJu26E5GBfJyiyyVLHwY8MN45H5Cgl4ZMgss1ttij2Q")
-                ).andDo(print()).andExpect(status().isOk())
-                .andExpect(content().string(containsString("Hello, World")));
-    }
+//    @Test
+//    public void firstTest() throws Exception{
+//        this.mockMvc.perform(get("/")
+//                        .header("Authorization", "Bearer eyJhbGciOiJIUzUxMiJ9.eyJ1c2VybmFtZSI6InNhdXJhdiIsInBlcm1pc3Npb24iOlsiQ0VPIiwiRGV2ZWxvcGVyIl0sInJvbGUiOiJBRE1JTiIsImp0aSI6ImhlbGxvIiwiaWF0IjoxNjg3ODQ2MjQ3LCJleHAiOjE2ODc5MzI2NDd9.fp5gXwFzUQmHPqGIoZkGKJc-8u2jJSX9ZaUSLmcDY8VcJu26E5GBfJyiyyVLHwY8MN45H5Cgl4ZMgss1ttij2Q")
+//                ).andDo(print()).andExpect(status().isOk())
+//                .andExpect(content().string(containsString("Hello, World")));
+//    }
 
     @Test
     public void givenUser_onRegistrationProcess_CanLoginSuccessfully() throws Exception{
@@ -91,7 +91,7 @@ public class MyUserControllerIntegrationTest {
 
         String addInformationRequest = ow.writeValueAsString(addInformation);
 
-        MvcResult addInformationMvcResult = mockMvc.perform(post(addInformationUrl).contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(post(addInformationUrl).contentType(MediaType.APPLICATION_JSON)
                         .content(addInformationRequest)
                         .header("Authorization", "Bearer ".concat(jwt)))
                 .andExpect(status().isOk())
@@ -103,7 +103,7 @@ public class MyUserControllerIntegrationTest {
 
         String loginRequestString = ow.writeValueAsString(loginRequest);
 
-        MvcResult loginMvcResult = mockMvc.perform(post(loginUrl).contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(post(loginUrl).contentType(MediaType.APPLICATION_JSON)
                         .content(loginRequestString))
                 .andExpect(status().isOk()).andReturn();
 

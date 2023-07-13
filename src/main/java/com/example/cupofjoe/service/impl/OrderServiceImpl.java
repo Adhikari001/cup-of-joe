@@ -56,7 +56,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderResponse> findMySales(String orderStatus) {
+    public List<OrderResponse> findOrderToMe(String orderStatus) {
         List<Orders> orders;
         if (orderStatus==null){
             orders = ordersRepository.findMySales(contextHolderService.getContext().getUserId());
@@ -67,7 +67,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderResponse> findMyBuys(String orderStatus) {
+    public List<OrderResponse> findOrdersByMe(String orderStatus) {
         List<Orders> orders;
         if (orderStatus==null){
             orders = ordersRepository.findMyBuys(contextHolderService.getContext().getUserId());

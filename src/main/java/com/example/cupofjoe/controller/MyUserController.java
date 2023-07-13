@@ -23,10 +23,10 @@ public class MyUserController {
         this.myUserService = myUserService;
     }
 
-    @GetMapping("/")
-    public String helloTest(){
-        return "Hello, World";
-    }
+//    @GetMapping("/")
+//    public String helloTest(){
+//        return "Hello, World";
+//    }
 
     @PostMapping(Routes.REGISTER)
     public RegistrationResponse registrationRequest(@Valid @RequestBody RegistrationRequest request){

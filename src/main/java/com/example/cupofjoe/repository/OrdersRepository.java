@@ -15,10 +15,10 @@ public interface OrdersRepository extends JpaRepository<Orders, Long>, JpaSpecif
     @Query(value = "select order from Orders order where order.seller.id = :userId and order.orderStatus = :orderStatus")
     List<Orders> findMySales(String userId, String orderStatus);
 
-    @Query(value = "select order from Orders order where order.seller.id = :userId")
+    @Query(value = "select order from Orders order where order.buyer.id = :userId")
     List<Orders> findMyBuys(String userId);
 
-    @Query(value = "select order from Orders order where order.seller.id = :userId and order.orderStatus = :orderStatus")
+    @Query(value = "select order from Orders order where order.buyer.id = :userId and order.orderStatus = :orderStatus")
     List<Orders> findMyBuys(String userId, String orderStatus);
 
     @Query(value = "select order from Orders order where order.id = :orderId and order.seller.id = :userId")

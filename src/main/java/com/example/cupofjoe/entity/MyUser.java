@@ -73,7 +73,6 @@ public class MyUser {
     @Column(name = "user_registration_status")
     private String userRegistrationStatus;
 
-
     @Column(name = "email_verification_status")
     private String emailVerificationStatus;
 

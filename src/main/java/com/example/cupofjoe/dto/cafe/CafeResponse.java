@@ -4,11 +4,13 @@ import lombok.Data;
 
 @Data
 public class CafeResponse {
-    private Long cafeId;
+    private String cafeId;
     private String cafeName;
 
-    public CafeResponse(Long cafeId, String cafeName) {
+    public CafeResponse(String cafeId, String cafeName) {
         this.cafeId = cafeId;
         this.cafeName = cafeName;
     }
+
+    public CafeResponse(){}
 }

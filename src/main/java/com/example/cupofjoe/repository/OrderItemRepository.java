@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface OrderItemRepository extends JpaRepository<OrderItem, Long> {
-    @Query(value = "select item from OrderItem item where item.orders = :orders")
+    @Query(value = "select item from OrderItem item where item.orders = :order")
     List<OrderItem> findOrderItemsOfOrder(Orders order);
 }

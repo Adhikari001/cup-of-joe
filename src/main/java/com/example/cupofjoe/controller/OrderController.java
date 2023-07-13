@@ -32,13 +32,13 @@ public class OrderController {
     @GetMapping(Routes.ORDER_TO_ME)
     public List<OrderResponse> findMySales(@RequestParam(value = "orderStatus", required = false) String orderStatus){
         log.info("Get order based on status :: {}", orderStatus);
-        return orderService.findMySales(orderStatus);
+        return orderService.findOrderToMe(orderStatus);
     }
 
     @GetMapping(Routes.ORDER_BY_ME)
     public List<OrderResponse> findMyBuys(@RequestParam(value = "orderStatus", required = false) String orderStatus){
         log.info("Get order based on status :: {}", orderStatus);
-        return orderService.findMyBuys(orderStatus);
+        return orderService.findOrdersByMe(orderStatus);
     }
 
     @PutMapping(Routes.MARK_AS_PREPARED)
