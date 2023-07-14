@@ -104,10 +104,18 @@ public class MyUserControllerIntegrationTest {
 
         String loginRequestString = ow.writeValueAsString(loginRequest);
 
-        mockMvc.perform(post(loginUrl).contentType(MediaType.APPLICATION_JSON)
+        MvcResult loginResponseMvc = mockMvc.perform(post(loginUrl).contentType(MediaType.APPLICATION_JSON)
                         .content(loginRequestString))
                 .andExpect(status().isOk()).andReturn();
 
+        LoginResponse loginResponse = mapper.readValue(loginResponseMvc.getResponse().getContentAsString(), LoginResponse.class);
+
+        //logout api
+        String logoutUrl = "/api/v1/user/logout";
+
+        mockMvc.perform(post(logoutUrl)
+                .header("Authorization", "Bearer ".concat(loginResponse.getToken())))
+                .andExpect(status().isOk());
     }
 
     @After

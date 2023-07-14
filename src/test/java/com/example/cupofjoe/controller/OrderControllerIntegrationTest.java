@@ -135,7 +135,7 @@ public class OrderControllerIntegrationTest {
         Assertions.assertEquals(OrderStatus.ORDERED.name(),myFirstBuy.getOrderStatus());
 
         final String markAsPreparedUrl = "/api/v1/order/prepared/";
-        MvcResult markAsPreparedMock = mockMvc.perform(put(markAsPreparedUrl.concat(String.valueOf(myFirstBuy.getOrderId())))
+        MvcResult markAsPreparedMock = mockMvc.perform(patch(markAsPreparedUrl.concat(String.valueOf(myFirstBuy.getOrderId())))
                         .header("Authorization", "Bearer ".concat(sellerJwt)))
                 .andExpect(status().isOk())
                 .andReturn();
@@ -144,7 +144,7 @@ public class OrderControllerIntegrationTest {
 
 
         final String markAsCompleteUrl = "/api/v1/order/completed/";
-        MvcResult markAsCompleteMock = mockMvc.perform(put(markAsCompleteUrl.concat(String.valueOf(myFirstBuy.getOrderId())))
+        MvcResult markAsCompleteMock = mockMvc.perform(patch(markAsCompleteUrl.concat(String.valueOf(myFirstBuy.getOrderId())))
                         .header("Authorization", "Bearer ".concat(sellerJwt)))
                 .andExpect(status().isOk())
                 .andReturn();
