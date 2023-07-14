@@ -1,5 +1,5 @@
 plugins {
-	java
+	war
 	id("org.springframework.boot") version "3.1.1"
 	id("io.spring.dependency-management") version "1.1.0"
 }
@@ -9,6 +9,11 @@ version = "0.0.1-SNAPSHOT"
 
 java {
 	sourceCompatibility = JavaVersion.VERSION_17
+}
+
+
+tasks.war {
+	archiveFileName.set("root.war")
 }
 
 configurations {
@@ -33,6 +38,7 @@ dependencies {
 	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.5")
 	runtimeOnly("com.h2database:h2:2.1.214")
 	implementation("org.postgresql:postgresql:42.6.0")
+	implementation("org.springframework.boot:spring-boot-starter-tomcat")
 //	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")

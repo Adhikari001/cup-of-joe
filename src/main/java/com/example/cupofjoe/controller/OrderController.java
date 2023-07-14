@@ -41,13 +41,13 @@ public class OrderController {
         return orderService.findOrdersByMe(orderStatus);
     }
 
-    @PutMapping(Routes.MARK_AS_PREPARED)
+    @PatchMapping(Routes.MARK_AS_PREPARED)
     public UpdateResponse<OrderResponse> markOrderAsPrepared(@PathVariable("orderId") Long orderId){
         log.info("Mark order as prepared :: {}", orderId);
         return orderService.markAsPrepared(orderId);
     }
 
-    @PutMapping(Routes.MARK_AS_COMPLETE)
+    @PatchMapping(Routes.MARK_AS_COMPLETE)
     public UpdateResponse<OrderResponse> markOrderAsCompleted(@PathVariable("orderId") Long orderId){
         log.info("Mark order as prepared :: {}", orderId);
         return orderService.markAsCompleted(orderId);

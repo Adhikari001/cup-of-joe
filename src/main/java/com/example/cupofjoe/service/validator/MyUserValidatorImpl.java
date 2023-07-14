@@ -19,7 +19,7 @@ public class MyUserValidatorImpl implements MyUserValidator {
     public MyUser validateMyUser(String userId) {
         Optional<MyUser> optionalMyUser = userRepository.findById(userId);
         if(optionalMyUser.isEmpty())
-            throw new RestException("UV001", "User id is not valid");
+            throw new RestException("UV001", "Provided id is not valid");
         MyUser myUser = optionalMyUser.get();
         if(myUser.isDisabled())
             throw new RestException("UV002", "User has been disabled.");

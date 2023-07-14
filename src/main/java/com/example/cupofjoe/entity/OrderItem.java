@@ -22,7 +22,8 @@ public class OrderItem {
     @Column(name = "additional_information")
     private String additionalInformation;
 
-    @OneToOne
-    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    @ManyToOne
+    @JoinColumn(name = "orders")
     private Orders orders;
+
 }

@@ -8,8 +8,9 @@ import com.example.cupofjoe.service.OrderItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class OrderItemServiceImpl implements OrderItemService {
@@ -21,20 +22,21 @@ public class OrderItemServiceImpl implements OrderItemService {
     }
 
     @Override
-    public List<OrderItem> addOrderItems(List<OrderItemRequest> items, Orders orders) {
-        List<OrderItem> orderItems = new ArrayList<>();
+    public Set<OrderItem> addOrderItems(List<OrderItemRequest> items, Orders orders) {
+        Set<OrderItem> orderItems = new HashSet<>();
         items.forEach(item -> {
             OrderItem orderItem = new OrderItem();
             orderItem.setItemName(item.getItemName());
             orderItem.setOrderQuantity(item.getItemCount());
             orderItem.setAdditionalInformation(item.getAdditionalInformation());
             orderItem.setOrders(orders);
+            orderItemRepository.save(orderItem);
         });
-        return orderItemRepository.saveAllAndFlush(orderItems);
+        return orderItems;
     }
 
-    @Override
-    public List<OrderItem> getItemsOfOrder(Orders order) {
-        return orderItemRepository.findOrderItemsOfOrder(order);
-    }
+//    @Override
+//    public List<OrderItem> getItemsOfOrder(Orders order) {
+//        return orderItemRepository.findOrderItemsOfOrder(order);
+//    }
 }

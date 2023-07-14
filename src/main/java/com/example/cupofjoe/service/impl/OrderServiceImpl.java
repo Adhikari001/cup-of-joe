@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -50,9 +51,11 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional
     public Message addOrderRequest(AddOrderRequest request) {
-        Orders orders =ordersRepository.saveAndFlush(prepareToAddOrder(request));
-        orderItemService.addOrderItems(request.getItem(), orders);
-        return Message.builder().message("orders added successfully").id(orders.getId()).build();
+        Orders orders =ordersRepository.save(prepareToAddOrder(request));
+        Set<OrderItem> orderItems = orderItemService.addOrderItems(request.getItem(), orders);
+        orders.setOrderItems(orderItems);
+        ordersRepository.save(orders);
+        return Message.builder().message("Order added successfully").id(orders.getId()).build();
     }
 
     @Override
@@ -110,12 +113,12 @@ public class OrderServiceImpl implements OrderService {
                 .sellerLastName(order.getSeller().getLastName())
                 .buyerFirstName(order.getBuyer().getFirstName())
                 .buyerLastName(order.getBuyer().getLastName())
-                .cafeName(order.getBuyer().getCafeName())
-                .items(prepareOrderItemResponse(orderItemService.getItemsOfOrder(order)))
+                .cafeName(order.getSeller().getCafeName())
+                .items(prepareOrderItemResponse(order.getOrderItems()))
                 .build();
     }
 
-    private List<OrderItemRequest> prepareOrderItemResponse(List<OrderItem> orders) {
+    private List<OrderItemRequest> prepareOrderItemResponse(Set<OrderItem> orders) {
         List<OrderItemRequest> response = new ArrayList<>();
         orders.forEach(order->response.add(new OrderItemRequest(order.getItemName(), order.getOrderQuantity(), order.getAdditionalInformation())));
         return response;
@@ -126,6 +129,7 @@ public class OrderServiceImpl implements OrderService {
         orders.setSeller(myUserValidator.validateMyUser(request.getCafeId()));
         orders.setBuyer(myUserValidator.validateMyUser(contextHolderService.getContext().getUserId()));
         orders.setOrderStatus(OrderStatus.ORDERED.name());
+//        orders.setOrderItems(orderItems);
         return orders;
     }
 }

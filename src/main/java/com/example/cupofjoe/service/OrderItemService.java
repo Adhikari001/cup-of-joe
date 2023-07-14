@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 public interface OrderItemService {
-    List<OrderItem> addOrderItems(List<OrderItemRequest> item, Orders orders);
+    Set<OrderItem> addOrderItems(List<OrderItemRequest> item, Orders orders);
 
-    List<OrderItem> getItemsOfOrder(Orders order);
+//    List<OrderItem> getItemsOfOrder(Orders order);
 }

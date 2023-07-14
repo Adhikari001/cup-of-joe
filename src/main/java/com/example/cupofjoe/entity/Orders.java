@@ -4,6 +4,10 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
+import java.util.Set;
+
 @Data
 @Entity
 @Table(name = "orders")
@@ -19,7 +23,10 @@ public class Orders {
     @Column(name = "ordered_status")
     private String orderStatus;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "buyer", referencedColumnName = "id")
     private MyUser buyer;
+
+    @OneToMany(mappedBy = "orders")
+    private Set<OrderItem> orderItems;
 }
