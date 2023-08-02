@@ -13,7 +13,7 @@ java {
 
 
 tasks.war {
-	archiveFileName.set("root.war")
+	archiveFileName.set("ROOT.war")
 }
 
 configurations {
