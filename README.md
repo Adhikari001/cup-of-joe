@@ -1,4 +1,6 @@
-A web applicaiton that allows users to order coffee online from local restraunts. It is a RESTful API.
+A web application that allows users to order coffee online from local restaurants. It is a RESTful API.
+
+Has integration test with more than 85% coverage.
 
 Requirements
 Java 17
